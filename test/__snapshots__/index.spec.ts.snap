@@ -153,9 +153,21 @@ export class CancelablePromise<T> implements Promise<T> {
         });
     }
 
-     get [Symbol.toStringTag]() {
-            return "Cancellable Promise";
-     }
+    get [Symbol.toStringTag]() {
+        return "Cancellable Promise";
+    }
+
+    public andThen<TResult = T>(
+        onFulfilled: (value: T) => TResult | PromiseLike<TResult>,
+    ): CancelablePromise<TResult> {
+        return new CancelablePromise((resolve, reject, onCancel) => {
+            this.then((value) => {
+                if (onCancel.isCancelled) return;
+                resolve(onFulfilled(value));
+            }).catch(reject);
+            onCancel(() => this.cancel());
+        });
+    }
 
     public then<TResult1 = T, TResult2 = never>(
         onFulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
@@ -3248,9 +3260,21 @@ export class CancelablePromise<T> implements Promise<T> {
         });
     }
 
-     get [Symbol.toStringTag]() {
-            return "Cancellable Promise";
-     }
+    get [Symbol.toStringTag]() {
+        return "Cancellable Promise";
+    }
+
+    public andThen<TResult = T>(
+        onFulfilled: (value: T) => TResult | PromiseLike<TResult>,
+    ): CancelablePromise<TResult> {
+        return new CancelablePromise((resolve, reject, onCancel) => {
+            this.then((value) => {
+                if (onCancel.isCancelled) return;
+                resolve(onFulfilled(value));
+            }).catch(reject);
+            onCancel(() => this.cancel());
+        });
+    }
 
     public then<TResult1 = T, TResult2 = never>(
         onFulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
