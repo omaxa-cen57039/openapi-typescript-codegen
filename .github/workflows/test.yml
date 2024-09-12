@@ -21,6 +21,11 @@ jobs:
                   node-version: 20
                   cache: npm
 
+            - uses: actions/cache@v3
+              with:
+                  path: '~/.npm'
+                  key: ${{ runner.os }}-20-npmcache-${{ hashFiles('**/package-lock.json') }}
+
             - name: Install
               run: npm ci
 
