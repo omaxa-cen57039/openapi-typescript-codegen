@@ -1,6 +1,23 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.29.0](https://github.com/omaxa-cen57039/openapi-typescript-codegen/compare/v0.28.0...v0.29.0) (2024-09-12)
+
+
+### Features
+
+* add andThen to CancelablePromise ([fd460dd](https://github.com/omaxa-cen57039/openapi-typescript-codegen/commit/fd460dd12a1b6e2934d6a5895572e2a71bba8d7e))
+* remove number suffix from operationId ([6e2e686](https://github.com/omaxa-cen57039/openapi-typescript-codegen/commit/6e2e6867155f0984b84cc0542e3b6535b7724162))
+* stuff ([5b88c62](https://github.com/omaxa-cen57039/openapi-typescript-codegen/commit/5b88c62035b12567b72af1ab58cd684d33d73035))
+
+
+### Bug Fixes
+
+* adjust additional intermediate value call ([11f84f5](https://github.com/omaxa-cen57039/openapi-typescript-codegen/commit/11f84f51ed4f045a0cf1cf1ad8b7287ecd79619a))
+* adjust promise resolve for next issue ([41e25b8](https://github.com/omaxa-cen57039/openapi-typescript-codegen/commit/41e25b86e22a70f342a1cf42f91f957d9c2b14f5))
+* bump version ([605efa4](https://github.com/omaxa-cen57039/openapi-typescript-codegen/commit/605efa4e53321d379a6304f5759611f8e43fe1f5))
+* install release please ([7d1c869](https://github.com/omaxa-cen57039/openapi-typescript-codegen/commit/7d1c86989c7cb02711318c55edaabd73ec08a973))
+
 ## [0.27.0] - 2024-01-15
 ### Fixed
 - Reverted `@apidevtools/json-schema-ref-parser` to version 10.1.0

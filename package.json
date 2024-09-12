@@ -1,6 +1,6 @@
 {
 	"name": "@omaxa-csas/openapi-typescript-codegen",
-	"version": "0.28.0",
+	"version": "0.29.0",
 	"description": "Library that generates Typescript clients based on the OpenAPI specification.",
 	"author": "Ferdi Koomen",
 	"homepage": "https://github.com/ferdikoomen/openapi-typescript-codegen",
@@ -36,7 +36,11 @@
 	"bin": {
 		"openapi": "bin/index.js"
 	},
-	"files": ["bin/index.js", "dist/index.js", "types/index.d.ts"],
+	"files": [
+		"bin/index.js",
+		"dist/index.js",
+		"types/index.d.ts"
+	],
 	"scripts": {
 		"clean": "rimraf ./dist ./test/generated ./test/e2e/generated ./samples/generated ./coverage ./node_modules/.cache",
 		"build": "rollup --config --environment NODE_ENV:development",
