@@ -1,0 +1,34 @@
+name: Test
+
+on: [push]
+
+jobs:
+    test:
+        name: Test
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # Whole history is needed for Sonar scan
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: npm
+
+            - name: Install
+              run: npm ci
+
+            - name: Build library
+              run: npm run release
+
+            - name: Run unit tests
+              run: npm run test
+
+            - name: Submit to Codecov
+              run: npm run codecov
