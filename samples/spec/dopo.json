@@ -1,0 +1,1322 @@
+{
+	"openapi": "3.0.1",
+	"info": { "title": "OpenAPI definition", "version": "v0" },
+	"servers": [
+		{
+			"url": "https://dopo-deva-dopo-be-dopo-deva.be.tocp4s.csin.cz:12443",
+			"description": "Generated server url"
+		}
+	],
+	"paths": {
+		"/api/v1/dopo/deployments/{deploymentId}/finish": {
+			"post": {
+				"tags": ["Deployments"],
+				"summary": "Finish deployment",
+				"operationId": "finish",
+				"parameters": [
+					{
+						"name": "deploymentId",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/FinishDeploymentRequest"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": { "204": { "description": "No Content" } }
+			}
+		},
+		"/api/v1/dopo/deployments/start": {
+			"post": {
+				"tags": ["Deployments"],
+				"summary": "Start deployment",
+				"operationId": "start",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StartDeploymentRequest"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StartDeploymentResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/deployments/ghb/{deploymentId}/finish": {
+			"post": {
+				"tags": ["GHB deployments"],
+				"summary": "Finish deployment",
+				"operationId": "finish_1",
+				"parameters": [
+					{
+						"name": "Authorization",
+						"in": "header",
+						"required": true,
+						"schema": { "type": "string" }
+					},
+					{
+						"name": "deploymentId",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/FinishDeploymentRequest"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": { "204": { "description": "No Content" } }
+			}
+		},
+		"/api/v1/dopo/deployments/ghb/start": {
+			"post": {
+				"tags": ["GHB deployments"],
+				"summary": "Start deployment",
+				"operationId": "start_1",
+				"parameters": [
+					{
+						"name": "Authorization",
+						"in": "header",
+						"required": true,
+						"schema": { "type": "string" }
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StartDeploymentRequest"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"description": "Created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StartDeploymentResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/app-component-versions/ghb": {
+			"post": {
+				"tags": ["ghb-app-component-version-controller"],
+				"operationId": "create",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/GhbAppComponentVersionRequest"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AppComponentVersionResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/sases": {
+			"get": {
+				"tags": ["SASes"],
+				"summary": "Get all SASes",
+				"operationId": "list",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int32", "default": 0 }
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"maximum": 100,
+							"type": "integer",
+							"format": "int32",
+							"default": 30
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "name" }
+					},
+					{
+						"name": "order",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "asc" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageResponseSasResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/sases/{sasId}": {
+			"get": {
+				"tags": ["SASes"],
+				"summary": "Get SAS by id",
+				"operationId": "detail",
+				"parameters": [
+					{
+						"name": "sasId",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": { "$ref": "#/components/schemas/SasResponse" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/sases/{sasId}/app-modules": {
+			"get": {
+				"tags": ["App modules"],
+				"summary": "Get app modules by SAS id",
+				"operationId": "list_1",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int32", "default": 0 }
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"maximum": 100,
+							"type": "integer",
+							"format": "int32",
+							"default": 30
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "name" }
+					},
+					{
+						"name": "order",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "asc" }
+					},
+					{
+						"name": "sasId",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageResponseAppModuleResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/sases/search": {
+			"get": {
+				"tags": ["SASes"],
+				"summary": "Get filtered app components",
+				"operationId": "search",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int32", "default": 0 }
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"maximum": 100,
+							"type": "integer",
+							"format": "int32",
+							"default": 30
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "name" }
+					},
+					{
+						"name": "order",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "asc" }
+					},
+					{
+						"name": "query",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageResponseSasResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/deployments": {
+			"get": {
+				"tags": ["Deployments"],
+				"summary": "Get filtered deployments",
+				"operationId": "list_2",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int32", "default": 0 }
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"maximum": 100,
+							"type": "integer",
+							"format": "int32",
+							"default": 30
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "id" }
+					},
+					{
+						"name": "order",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "asc" }
+					},
+					{
+						"name": "environment",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"DEV",
+								"DEVA",
+								"INT",
+								"PRS",
+								"EDU",
+								"PRED",
+								"PROD",
+								"TST"
+							]
+						}
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": ["SUCCESS", "FAILURE", "STARTED"]
+						}
+					},
+					{
+						"name": "changeTicketId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string" }
+					},
+					{
+						"name": "deployer",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string" }
+					},
+					{
+						"name": "platform",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"type": "string",
+							"enum": [
+								"LAF_WEBLOGIC",
+								"LAF_TOMCAT",
+								"AKS",
+								"OCP4",
+								"DB",
+								"DB_ORACLE",
+								"DB_POSTGRES",
+								"CDN"
+							]
+						}
+					},
+					{
+						"name": "versionId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "appComponentId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "appModuleId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "sasId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "startedAtGte",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "date-time" }
+					},
+					{
+						"name": "startedAtLte",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "date-time" }
+					},
+					{
+						"name": "durationGte",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int64" }
+					},
+					{
+						"name": "durationLte",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int64" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PageResponseDeploymentResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/deployments/{deploymentId}": {
+			"get": {
+				"tags": ["Deployments"],
+				"summary": "Get deployment by id",
+				"operationId": "detail_1",
+				"parameters": [
+					{
+						"name": "deploymentId",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/DeploymentResponse" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/deployments/search": {
+			"get": {
+				"tags": ["Deployments"],
+				"summary": "Search deployments",
+				"operationId": "search_1",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int32", "default": 0 }
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"maximum": 100,
+							"type": "integer",
+							"format": "int32",
+							"default": 30
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "id" }
+					},
+					{
+						"name": "order",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "asc" }
+					},
+					{
+						"name": "environment",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"uniqueItems": true,
+							"type": "array",
+							"items": {
+								"type": "string",
+								"enum": [
+									"DEV",
+									"DEVA",
+									"INT",
+									"PRS",
+									"EDU",
+									"PRED",
+									"PROD",
+									"TST"
+								]
+							}
+						}
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"uniqueItems": true,
+							"type": "array",
+							"items": {
+								"type": "string",
+								"enum": ["SUCCESS", "FAILURE", "STARTED"]
+							}
+						}
+					},
+					{
+						"name": "changeTicketId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string" }
+					},
+					{
+						"name": "deployer",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string" }
+					},
+					{
+						"name": "platform",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"uniqueItems": true,
+							"type": "array",
+							"items": {
+								"type": "string",
+								"enum": [
+									"LAF_WEBLOGIC",
+									"LAF_TOMCAT",
+									"AKS",
+									"OCP4",
+									"DB",
+									"DB_ORACLE",
+									"DB_POSTGRES",
+									"CDN"
+								]
+							}
+						}
+					},
+					{
+						"name": "versionId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "appComponentId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "appModuleId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "sasId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "startedAtGte",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "date-time" }
+					},
+					{
+						"name": "startedAtLte",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "date-time" }
+					},
+					{
+						"name": "durationGte",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int64" }
+					},
+					{
+						"name": "durationLte",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int64" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PageResponseDeploymentResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/app-modules/{appModuleId}": {
+			"get": {
+				"tags": ["App modules"],
+				"summary": "Get app module by id",
+				"operationId": "detail_2",
+				"parameters": [
+					{
+						"name": "appModuleId",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": { "$ref": "#/components/schemas/AppModuleResponse" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/app-modules/{appModuleId}/app-components": {
+			"get": {
+				"tags": ["App components"],
+				"summary": "Get app components by app module id",
+				"operationId": "listByAppModule",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int32", "default": 0 }
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"maximum": 100,
+							"type": "integer",
+							"format": "int32",
+							"default": 30
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "name" }
+					},
+					{
+						"name": "order",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "asc" }
+					},
+					{
+						"name": "appModuleId",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageResponseAppComponentResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/app-components": {
+			"get": {
+				"tags": ["App components"],
+				"summary": "Get filtered app components",
+				"operationId": "list_3",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int32", "default": 0 }
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"maximum": 100,
+							"type": "integer",
+							"format": "int32",
+							"default": 30
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "name" }
+					},
+					{
+						"name": "order",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "asc" }
+					},
+					{
+						"name": "id",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "name",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string" }
+					},
+					{
+						"name": "sasId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "appModuleId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "language",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string" }
+					},
+					{
+						"name": "createdAtGte",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "date-time" }
+					},
+					{
+						"name": "createdAtLte",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "date-time" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageResponseAppComponentResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/app-components/{appComponentId}": {
+			"get": {
+				"tags": ["App components"],
+				"summary": "Get app component by id",
+				"operationId": "detail_3",
+				"parameters": [
+					{
+						"name": "appComponentId",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/AppComponentResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/app-components/{appComponentId}/app-component-versions": {
+			"get": {
+				"tags": ["App component versions"],
+				"summary": "Find app component versions by app component id",
+				"operationId": "list_4",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int32", "default": 0 }
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"maximum": 100,
+							"type": "integer",
+							"format": "int32",
+							"default": 30
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "version" }
+					},
+					{
+						"name": "order",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "asc" }
+					},
+					{
+						"name": "query",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "" }
+					},
+					{
+						"name": "appComponentId",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageResponseAppComponentVersionResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/app-components/search": {
+			"get": {
+				"tags": ["App components"],
+				"summary": "Get filtered app components",
+				"operationId": "search_2",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "integer", "format": "int32", "default": 0 }
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"maximum": 100,
+							"type": "integer",
+							"format": "int32",
+							"default": 30
+						}
+					},
+					{
+						"name": "sort",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "name" }
+					},
+					{
+						"name": "order",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "asc" }
+					},
+					{
+						"name": "appModuleId",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "format": "uuid" }
+					},
+					{
+						"name": "query",
+						"in": "query",
+						"required": false,
+						"schema": { "type": "string", "default": "" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PageResponseAppComponentResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/v1/dopo/app-component-versions/{appComponentVersionId}": {
+			"get": {
+				"tags": ["App component versions"],
+				"summary": "Find app component version by id",
+				"operationId": "detail_4",
+				"parameters": [
+					{
+						"name": "appComponentVersionId",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/AppComponentVersionResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"FinishDeploymentRequest": {
+				"required": ["status"],
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "string",
+						"enum": ["SUCCESS", "FAILURE", "STARTED"]
+					}
+				}
+			},
+			"StartDeploymentRequest": {
+				"required": [
+					"appComponentName",
+					"deployer",
+					"environment",
+					"sasName",
+					"version"
+				],
+				"type": "object",
+				"properties": {
+					"environment": {
+						"type": "string",
+						"enum": ["DEV", "DEVA", "INT", "PRS", "EDU", "PRED", "PROD", "TST"]
+					},
+					"version": { "type": "string" },
+					"sasName": { "pattern": "^SAS_[A-Z0-9_]+$", "type": "string" },
+					"appComponentName": { "type": "string" },
+					"changeTicketId": { "type": "string" },
+					"deployer": { "type": "string" },
+					"platform": {
+						"type": "string",
+						"enum": [
+							"LAF_WEBLOGIC",
+							"LAF_TOMCAT",
+							"AKS",
+							"OCP4",
+							"DB",
+							"DB_ORACLE",
+							"DB_POSTGRES",
+							"CDN"
+						]
+					}
+				}
+			},
+			"StartDeploymentResponse": {
+				"required": ["id"],
+				"type": "object",
+				"properties": { "id": { "type": "string", "format": "uuid" } }
+			},
+			"GhbAppComponentVersionRequest": {
+				"required": [
+					"appComponentName",
+					"appModuleName",
+					"gitActor",
+					"gitRefName",
+					"gitRefType",
+					"gitRepository",
+					"gitRevision",
+					"sasName",
+					"version"
+				],
+				"type": "object",
+				"properties": {
+					"sasName": { "type": "string" },
+					"appModuleName": { "type": "string" },
+					"appComponentName": { "type": "string" },
+					"version": { "type": "string" },
+					"gitRepository": { "type": "string" },
+					"gitRevision": { "type": "string" },
+					"gitRefName": { "type": "string" },
+					"gitRefType": { "type": "string", "enum": ["BRANCH", "TAG"] },
+					"gitActor": { "type": "string" },
+					"language": { "type": "string" }
+				}
+			},
+			"AppComponentVersionResponse": {
+				"required": ["appComponentId", "appModuleId", "id", "sasId", "version"],
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "format": "uuid" },
+					"version": { "type": "string" },
+					"appComponentId": { "type": "string", "format": "uuid" },
+					"appModuleId": { "type": "string", "format": "uuid" },
+					"sasId": { "type": "string", "format": "uuid" }
+				}
+			},
+			"PageResponseSasResponse": {
+				"required": [
+					"itemsTotalCount",
+					"page",
+					"pageCount",
+					"pageNumber",
+					"pageSize"
+				],
+				"type": "object",
+				"properties": {
+					"pageNumber": { "type": "integer", "format": "int32" },
+					"pageCount": { "type": "integer", "format": "int32" },
+					"nextPage": { "type": "integer", "format": "int32" },
+					"pageSize": { "type": "integer", "format": "int32" },
+					"itemsTotalCount": { "type": "integer", "format": "int64" },
+					"page": {
+						"type": "array",
+						"items": { "$ref": "#/components/schemas/SasResponse" }
+					}
+				}
+			},
+			"SasResponse": {
+				"required": ["id", "name"],
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "format": "uuid" },
+					"name": { "type": "string" }
+				}
+			},
+			"AppModuleResponse": {
+				"required": ["id", "name", "sasId"],
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "format": "uuid" },
+					"name": { "type": "string" },
+					"sasId": { "type": "string", "format": "uuid" }
+				}
+			},
+			"PageResponseAppModuleResponse": {
+				"required": [
+					"itemsTotalCount",
+					"page",
+					"pageCount",
+					"pageNumber",
+					"pageSize"
+				],
+				"type": "object",
+				"properties": {
+					"pageNumber": { "type": "integer", "format": "int32" },
+					"pageCount": { "type": "integer", "format": "int32" },
+					"nextPage": { "type": "integer", "format": "int32" },
+					"pageSize": { "type": "integer", "format": "int32" },
+					"itemsTotalCount": { "type": "integer", "format": "int64" },
+					"page": {
+						"type": "array",
+						"items": { "$ref": "#/components/schemas/AppModuleResponse" }
+					}
+				}
+			},
+			"DeploymentResponse": {
+				"required": [
+					"appComponentId",
+					"appModuleId",
+					"deployer",
+					"environment",
+					"id",
+					"sasId",
+					"startedAt",
+					"status",
+					"versionId"
+				],
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "format": "uuid" },
+					"versionId": { "type": "string", "format": "uuid" },
+					"appComponentId": { "type": "string", "format": "uuid" },
+					"appModuleId": { "type": "string", "format": "uuid" },
+					"sasId": { "type": "string", "format": "uuid" },
+					"environment": {
+						"type": "string",
+						"enum": ["DEV", "DEVA", "INT", "PRS", "EDU", "PRED", "PROD", "TST"]
+					},
+					"status": {
+						"type": "string",
+						"enum": ["SUCCESS", "FAILURE", "STARTED"]
+					},
+					"changeTicketId": { "type": "string" },
+					"deployer": { "type": "string" },
+					"platform": {
+						"type": "string",
+						"enum": [
+							"LAF_WEBLOGIC",
+							"LAF_TOMCAT",
+							"AKS",
+							"OCP4",
+							"DB",
+							"DB_ORACLE",
+							"DB_POSTGRES",
+							"CDN"
+						]
+					},
+					"startedAt": { "type": "string", "format": "date-time" },
+					"finishedAt": { "type": "string", "format": "date-time" },
+					"duration": { "type": "integer", "format": "int64" }
+				}
+			},
+			"PageResponseDeploymentResponse": {
+				"required": [
+					"itemsTotalCount",
+					"page",
+					"pageCount",
+					"pageNumber",
+					"pageSize"
+				],
+				"type": "object",
+				"properties": {
+					"pageNumber": { "type": "integer", "format": "int32" },
+					"pageCount": { "type": "integer", "format": "int32" },
+					"nextPage": { "type": "integer", "format": "int32" },
+					"pageSize": { "type": "integer", "format": "int32" },
+					"itemsTotalCount": { "type": "integer", "format": "int64" },
+					"page": {
+						"type": "array",
+						"items": { "$ref": "#/components/schemas/DeploymentResponse" }
+					}
+				}
+			},
+			"AppComponentResponse": {
+				"required": ["appModuleId", "id", "name", "sasId"],
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "format": "uuid" },
+					"name": { "type": "string" },
+					"appModuleId": { "type": "string", "format": "uuid" },
+					"language": { "type": "string" },
+					"gitRepository": { "type": "string" },
+					"sasId": { "type": "string", "format": "uuid" }
+				}
+			},
+			"PageResponseAppComponentResponse": {
+				"required": [
+					"itemsTotalCount",
+					"page",
+					"pageCount",
+					"pageNumber",
+					"pageSize"
+				],
+				"type": "object",
+				"properties": {
+					"pageNumber": { "type": "integer", "format": "int32" },
+					"pageCount": { "type": "integer", "format": "int32" },
+					"nextPage": { "type": "integer", "format": "int32" },
+					"pageSize": { "type": "integer", "format": "int32" },
+					"itemsTotalCount": { "type": "integer", "format": "int64" },
+					"page": {
+						"type": "array",
+						"items": { "$ref": "#/components/schemas/AppComponentResponse" }
+					}
+				}
+			},
+			"PageResponseAppComponentVersionResponse": {
+				"required": [
+					"itemsTotalCount",
+					"page",
+					"pageCount",
+					"pageNumber",
+					"pageSize"
+				],
+				"type": "object",
+				"properties": {
+					"pageNumber": { "type": "integer", "format": "int32" },
+					"pageCount": { "type": "integer", "format": "int32" },
+					"nextPage": { "type": "integer", "format": "int32" },
+					"pageSize": { "type": "integer", "format": "int32" },
+					"itemsTotalCount": { "type": "integer", "format": "int64" },
+					"page": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/AppComponentVersionResponse"
+						}
+					}
+				}
+			}
+		}
+	}
+}
