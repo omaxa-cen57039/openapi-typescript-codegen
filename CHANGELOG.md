@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.29.1](https://github.com/omaxa-cen57039/openapi-typescript-codegen/compare/v0.29.0...v0.29.1) (2024-09-12)
+
+
+### Bug Fixes
+
+* improving caching ([dbd4c32](https://github.com/omaxa-cen57039/openapi-typescript-codegen/commit/dbd4c32dd0eb4a0197e1fa8204a9f57fb9b9cd8b))
+* npm publish ([9103158](https://github.com/omaxa-cen57039/openapi-typescript-codegen/commit/9103158208b3959616843d98e590c5d9e00bf00f))
+
 ## [0.29.0](https://github.com/omaxa-cen57039/openapi-typescript-codegen/compare/v0.28.0...v0.29.0) (2024-09-12)
 
 
